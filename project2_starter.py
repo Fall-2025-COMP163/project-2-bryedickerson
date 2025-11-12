@@ -53,19 +53,35 @@ class SimpleBattle:
 # YOUR CLASSES TO IMPLEMENT (6 CLASSES TOTAL)
 # ============================================================================
 
+# AI USAGE (1): Used AI throughout program to check for correct syntax/any errors I had in my code.
+# AI USAGE (2): Used AI to explain any tasks that I was confused about to make sure I knew what I was doing.
+# AI USAGE (3): Used AI to help me apply certain calculations that I couldn't figure out how to type out.
+# AI USAGE: AI platform used: ChatGPT
+
+import random
+# Asked ChatGPT to explain this part: Line 275 uses random, needed to import the random module for it to run.
+
 class Character:
     """
     Base class for all characters.
     This is the top of our inheritance hierarchy.
     """
-    
+
     def __init__(self, name, health, strength, magic):
+        self.name = name
+        self.health = health
+        self.strength = strength
+        self.magic = magic
         """Initialize basic character attributes"""
         # TODO: Set the character's name, health, strength, and magic
         # These should be stored as instance variables
-        pass
-        
+
+
     def attack(self, target):
+        damage = self.strength # damage based on self.strength
+        target.take_damage(damage) # used to apply damage
+
+
         """
         Basic attack method that all characters can use.
         This method should:
@@ -77,8 +93,14 @@ class Character:
         # Damage should be based on self.strength
         # Use target.take_damage(damage) to apply damage
         pass
-        
+
     def take_damage(self, damage):
+        self.health = self.health - damage
+        if self.health <= 0: # makes sure health doesn't pass below zero
+            self.health = 0
+
+        if self.health == 0: 
+            print("Character Defeated!")
         """
         Reduces this character's health by the damage amount.
         Health should never go below 0.
@@ -87,8 +109,12 @@ class Character:
         # Reduce self.health by damage amount
         # Make sure health doesn't go below 0
         pass
-        
+
     def display_stats(self):
+        print(f"Character Name: {self.name}")
+        print(f"Current Health {self.health}")
+        print(f"Current Strength: {self.strength}")
+        print(f"Current Magic: {self.magic}")
         """
         Prints the character's current stats in a nice format.
         """
@@ -96,13 +122,18 @@ class Character:
         # Make it look nice with formatting
         pass
 
+
 class Player(Character):
     """
     Base class for player characters.
     Inherits from Character and adds player-specific features.
     """
-    
-    def __init__(self, name, character_class, health, strength, magic):
+
+    def __init__(self, name, character_class, health, strength, magic, current_level=1, exp=100):
+        super().__init__(name, health, strength, magic)
+        self.character_class = character_class
+        self.current_level = current_level
+        self.exp = exp
         """
         Initialize a player character.
         Should call the parent constructor and add player-specific attributes.
@@ -111,8 +142,14 @@ class Player(Character):
         # TODO: Store the character_class (like "Warrior", "Mage", etc.)
         # TODO: Add any other player-specific attributes (level, experience, etc.)
         pass
-        
+
     def display_stats(self):
+        super().display_stats()
+
+        print(f"Character Class: {self.character_class}")
+        print(f"Character's Current Level: {self.current_level}")
+        print(f"Character's Experience Level: {self.exp}")
+
         """
         Override the parent's display_stats to show additional player info.
         Should show everything the parent shows PLUS player-specific info.
@@ -121,22 +158,32 @@ class Player(Character):
         # TODO: Then print additional player info like class and level
         pass
 
+
 class Warrior(Player):
     """
     Warrior class - strong physical fighter.
     Inherits from Player.
     """
-    
+# Used certain suggested stats for characters
     def __init__(self, name):
-        """
-        Create a warrior with appropriate stats.
-        Warriors should have: high health, high strength, low magic
-        """
-        # TODO: Call super().__init__() with warrior-appropriate stats
-        # Suggested stats: health=120, strength=15, magic=5
-        pass
-        
+        super().__init__(name=name, character_class="Warrior", health=120, strength=20, magic=5)
+
+    """
+    Create a warrior with appropriate stats.
+    Warriors should have: high health, high strength, low magic
+    """
+    # TODO: Call super().__init__() with warrior-appropriate stats
+    # Suggested stats: health=120, strength=15, magic=5
+    pass
+
     def attack(self, target):
+        if self.strength >= 4:  # Makes sure they have enough strength to use attacks
+            self.strength -= 4
+            damage = self.strength * 0.7  # damage multiplier for warrior class base attacks is 0.7
+            target.health -= damage
+        else:
+            print("Low strength, not enough to attack")
+
         """
         Override the basic attack to make it warrior-specific.
         Warriors should do extra physical damage.
@@ -145,8 +192,15 @@ class Warrior(Player):
         # Should do more damage than basic attack
         # Maybe strength + 5 bonus damage?
         pass
-        
+
     def power_strike(self, target):
+        if self.strength >= 7:  # Makes sure they have enough magic
+            self.strength -= 7
+            damage = self.strength * 1.75  # damage multiplier for base attacks is 0.4
+            target.health -= damage
+        else:
+            print("Too much strength used! Not enough left to use power strike")
+
         """
         Special warrior ability - a powerful attack that does extra damage.
         """
@@ -154,13 +208,14 @@ class Warrior(Player):
         # Should do significantly more damage than regular attack
         pass
 
+
 class Mage(Player):
     """
     Mage class - magical spellcaster.
     Inherits from Player.
     """
-    
     def __init__(self, name):
+        super().__init__(name, character_class="Mage", health= 85, strength=10, magic=25) # base stats
         """
         Create a mage with appropriate stats.
         Mages should have: low health, low strength, high magic
@@ -168,8 +223,14 @@ class Mage(Player):
         # TODO: Call super().__init__() with mage-appropriate stats
         # Suggested stats: health=80, strength=8, magic=20
         pass
-        
+
     def attack(self, target):
+        if self.magic >= 3:  # Makes sure they have enough magic
+            self.magic -= 3
+            damage = self.magic * 0.4  # damage multiplier for base attacks is 0.4
+            target.health -= damage
+        else:
+            print("Not enough magic left to attack")
         """
         Override the basic attack to make it magic-based.
         Mages should use magic for damage instead of strength.
@@ -177,8 +238,14 @@ class Mage(Player):
         # TODO: Implement mage attack
         # Should use self.magic for damage calculation instead of strength
         pass
-        
+
     def fireball(self, target):
+        if self.magic >= 6: # Stronger attack = higher magic consumption
+            self.magic -= 6
+            damage = self.magic * 1.2 # Stronger attack also = higher damage multiplier
+            target.health -= damage
+        else:
+            print("Not enough magic to use fireball")
         """
         Special mage ability - a powerful magical attack.
         """
@@ -186,13 +253,16 @@ class Mage(Player):
         # Should do magic-based damage with bonus
         pass
 
+
 class Rogue(Player):
     """
     Rogue class - quick and sneaky fighter.
     Inherits from Player.
     """
-    
+
     def __init__(self, name):
+        super().__init__(name=name, character_class="Rogue", health=90, strength=15, magic=15)
+
         """
         Create a rogue with appropriate stats.
         Rogues should have: medium health, medium strength, medium magic
@@ -200,8 +270,19 @@ class Rogue(Player):
         # TODO: Call super().__init__() with rogue-appropriate stats
         # Suggested stats: health=90, strength=12, magic=10
         pass
-        
+
     def attack(self, target):
+        basic_attack = self.strength * 0.75
+        critical_chance = random.randint(1, 10)
+
+        if critical_chance <= 3:
+            damage = basic_attack * 2
+            print("Critical Hit!")
+        else:
+            damage = basic_attack
+
+        target.health -= damage
+
         """
         Override the basic attack to make it rogue-specific.
         Rogues should have a chance for extra damage (critical hits).
@@ -210,8 +291,14 @@ class Rogue(Player):
         # Could add a chance for critical hit (double damage)
         # Hint: use random.randint(1, 10) and if result <= 3, it's a crit
         pass
-        
+
     def sneak_attack(self, target):
+        base_attack = self.strength * 0.7
+        sneak_damage = base_attack * 2
+        print("Sneak attack hit!")
+
+        target.health -= sneak_damage
+
         """
         Special rogue ability - guaranteed critical hit.
         """
@@ -219,20 +306,29 @@ class Rogue(Player):
         # Should always do critical damage
         pass
 
+
 class Weapon:
+
+    def __init__(self, name, damage_bonus):
+        self.name = name
+        self.damage_bonus = damage_bonus + 15
+            
+
     """
     Weapon class to demonstrate composition.
     Characters can HAVE weapons (composition, not inheritance).
     """
-    
-    def __init__(self, name, damage_bonus):
-        """
-        Create a weapon with a name and damage bonus.
-        """
-        # TODO: Store weapon name and damage bonus
-        pass
-        
+
+    """
+    Create a weapon with a name and damage bonus.
+    """
+    # TODO: Store weapon name and damage bonus
+    pass
+
     def display_info(self):
+
+        print(f"Weapon Name: {self.name}")
+        print(f"Damage Bonus: {self.damage_bonus}")
         """
         Display information about this weapon.
         """
