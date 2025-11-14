@@ -2,6 +2,57 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=21440165&assignment_repo_type=AssignmentRepo)
 # COMP 163 - Project 2: Character Abilities Showcase
 
+
+# Bonus Creative Features: Did you add anything unique?
+- I did not add anything extra to my code
+
+
+# AI Usage: What AI assistance did you use and where?
+- I used AI to explain concepts to me that I didn't understand
+- I used AI to help me learn what I missed in the test cases (e.g., changing my current_level variable to level to match the test case)
+
+# How to Run: Clear instructions for testing your code
+- To create a character:
+- name the class + your character's name, assign it to a variable (e.g., warrior = Warrior("Name"))
+
+- To display stats:
+- variable name + .display_stats() (e.g., warrior.display_stats())
+
+- To use a special ability
+- variable name + special ability name and who to use it on (e.g., mage.fireball(target_name))
+
+- To display weapon info
+- weapon name + .display_info (e.g., dagger.display_info())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 🎯 Project Overview
 
 Build a simple character system that demonstrates mastery of object-oriented programming fundamentals: inheritance, method overriding, polymorphism, and composition. This project focuses on core OOP concepts without the complexity of a full game system.
