@@ -379,44 +379,44 @@ if __name__ == "__main__":
     target2 = Character("Enemy2", 50, 0, 0)
     target3 = Character("Enemy3", 50, 0, 0)
 
-# warrior.power_strike(target1)
-# mage.fireball(target2)
-# rogue.sneak_attack(target3)
+    # warrior.power_strike(target1)
+    # mage.fireball(target2)
+    # rogue.sneak_attack(target3)
     warrior.power_strike(target1)
 
     mage.fireball(target2)
 
     rogue.sneak_attack(target3)
 
-# TODO: Test composition with weapons
-# print("\n🗡️ Testing Weapon Composition:")
-# sword = Weapon("Iron Sword", 10)
-# staff = Weapon("Magic Staff", 15)
-# dagger = Weapon("Steel Dagger", 8)
+    # TODO: Test composition with weapons
+    # print("\n🗡️ Testing Weapon Composition:")
+    # sword = Weapon("Iron Sword", 10)
+    # staff = Weapon("Magic Staff", 15)
+    # dagger = Weapon("Steel Dagger", 8)
 
-sword = Weapon("Iron Sword", 10)
-staff = Weapon("Magic Staff", 15)
-dagger = Weapon("Steel Dagger", 8)
-#
-# sword.display_info()
-# staff.display_info()
-# dagger.display_info()
+    sword = Weapon("Iron Sword", 10)
+    staff = Weapon("Magic Staff", 15)
+    dagger = Weapon("Steel Dagger", 8)
+    #
+    # sword.display_info()
+    # staff.display_info()
+    # dagger.display_info()
 
-sword.display_info()
+    sword.display_info()
 
-staff.display_info()
+    staff.display_info()
 
-dagger.display_info()
-# TODO: Test the battle system
-# print("\n⚔️ Testing Battle System:")
-# battle = SimpleBattle(warrior, mage)
-# battle.fight()
+    dagger.display_info()
+    # TODO: Test the battle system
+    # print("\n⚔️ Testing Battle System:")
+    # battle = SimpleBattle(warrior, mage)
+    # battle.fight()
 
-print("\n Testing Battle System:")
+    print("\n Testing Battle System:")
 
-battle = SimpleBattle(warrior, mage)
+    battle = SimpleBattle(warrior, mage)
 
-battle.fight()
+    battle.fight()
 
 
-print("\n✅ Testing complete!")
+    print("\n✅ Testing complete!")
